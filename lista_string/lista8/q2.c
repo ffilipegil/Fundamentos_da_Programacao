@@ -1,49 +1,45 @@
 #include <stdio.h>
 #include <string.h>
 
-void criaStringFiltrada(const char *s1, const char *s2, char *s3) {
-    int i, j, k, repetido;
-    int pos = 0;
+void cria_string(char string[], char string2[], char string3[]){
+  int i, j, diferente, k = 0, repetido;
 
-    for (i = 0; s1[i] != '\0'; i++) {
-        // Verifica se o caractere de s1 está em s2
-        for (j = 0; s2[j] != '\0'; j++) {
-            if (s1[i] == s2[j]) {
-                break;
-            }
-        }
-
-        // Se chegou ao fim de s2 sem encontrar o caractere, ele pode ser adicionado
-        if (s2[j] == '\0') {
-            repetido = 0;
-            // Verifica se o caractere já foi adicionado a s3
-            for (k = 0; k < pos; k++) {
-                if (s3[k] == s1[i]) {
-                    repetido = 1;
-                    break;
-                }
-            }
-            // Se não for repetido, adiciona a s3
-            if (!repetido) {
-                s3[pos++] = s1[i];
-            }
-        }
+  for (i = 0; string[i] != '\0'; i++) {
+    diferente = 0;
+    for (j = 0; string2[j] != '\0'; j++) {
+      if (string[i] != string2[j]) {
+        diferente++;
+      }
     }
-    s3[pos] = '\0'; // Finaliza a string
+    if (diferente == strlen(string2)) {
+
+      repetido = 0;
+      for (j = 0; j < k; j++) {
+        if (string[i] == string3[j]) {
+          repetido = 1;
+          break;
+        }
+      }
+      if (!repetido) {
+        string3[k] = string[i];
+        k++;
+      }
+    }
+  }
+  string3[k] = '\0';
 }
 
-int main() {
-    char s1[100], s2[100], s3[100];
+void main(){
+  //declaração de variáveis
+  char string[20], string2[20], string3[20];
 
-    printf("Digite a primeira string (s1): ");
-    gets (s1);
+  //lendo a string
+  printf ("Entre com a string: ");
+  gets (string);
+  printf ("Entre com outra string: ");
+  gets (string2);
 
-    printf("Digite a segunda string (s2): ");
-    gets (s2);
-
-    criaStringFiltrada(s1, s2, s3);
-
-    printf("\nString resultante (s3): %s\n", s3);
-
-    return 0;
+  cria_string(string,string2, string3);
+  
+  printf ("\nString 3: %s\n", string3);
 }

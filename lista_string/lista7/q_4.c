@@ -1,44 +1,33 @@
 #include <stdio.h>
 #include <string.h>
 
-void rem_caracteres(char string[], char caracter){
-    
-    int i, j;
+void exclui_carac(char string[], char carac) {  
+  int i, j = 0;
 
-    char strAux[strlen(string)+1];
-
-    for (i=0, j=0; string[i]; i++)
-    {
-        if (string[i] != caracter)
-		{
-			strAux[j] = string[i];
-			j++;
-		}
+  for (i = 0; string[i] != '\0'; i++) {     
+    if (string[i] != carac) {
+      string[j] = string[i];
+      j++;
     }
-    
-    strAux[j] = '\0';
-	
-	//copiando 'strAux' para a string original
-	strcpy (string, strAux);
-	
+  }
+
+  string[j] = '\0'; // Finaliza a nova string
 }
 
-void main (){
-    //declaração de variáveis
-    char string[20], letra;
-        
-    //lendo a string
-    printf ("Entre com a string: ");
-    gets (string);
+void main(){
+  //declaração de variáveis
+  char string[20], carac;
 
-    printf ("\nLetra a ser removida: ");
-	scanf ("%c", &letra);
+  //lendo a string
+  printf ("\n\tEntre com a string: ");
+  gets (string);
+  printf ("\n\tString: %s", string);
+  printf ("\n\tQuer retirar qual caracter?: ");
+  scanf("%c", &carac);
 
-	printf ("\n\nAntes da remocao: %s", string);
+  //chamando a função 'stringTamanho'
+  exclui_carac(string, carac);
 
-	rem_caracteres(string, letra);
+  printf ("\n\tA string ficou assim %s\n", string);
 
-	//exibindo a string depois da remoção
-	printf ("\n\nDepois da remocao: %s", string);
-        
 }
