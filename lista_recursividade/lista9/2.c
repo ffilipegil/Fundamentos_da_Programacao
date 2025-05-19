@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-void trans_binario(int numero) {
+void transf_binario(int numero) {
 
 int resto;
 
     if(numero>0){
         resto=numero%2;
-        trans_binario(numero/2);
+        transf_binario(numero/2);
         printf("%d", resto);
     }
     else{
@@ -20,5 +20,5 @@ void main() {
     printf("Entre com um número: ");
     scanf("%d", &numero);
 
-    trans_binario(numero);
+    transf_binario(numero);
 }

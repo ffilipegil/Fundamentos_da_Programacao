@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-void trans_binario(int numero, int q, int termos) {
+void exibe_pg(int numero, int q, int termos) {
 
 
     if(termos>0){
         printf("%d ", numero);
-        trans_binario(numero*q, q, termos-1);
+        exibe_pg(numero*q, q, termos-1);
     }
     else{
         return;
@@ -22,5 +22,5 @@ void main() {
     printf("Quer exibir até quantos termos?: ");
     scanf("%d", &termos);
 
-    trans_binario(numero, q, termos);
+    exibe_pg(numero, q, termos);
 }

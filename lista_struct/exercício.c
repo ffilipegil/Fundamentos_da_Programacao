@@ -9,7 +9,7 @@ typedef struct{
         int situacao;
     } Aluno;
     
-void lerAlunos(Aluno turma[], int n){
+void preencherTurma(Aluno turma[], int n){
     int i;
     
     for(i=0;i<n;i++){
@@ -45,10 +45,10 @@ void exibirSituacao(Aluno turma[], int n, int opcao){
     
     int i;
     
-    printf("\nAlunos com situação %d:\n", opcao);
+    printf("\n\tAlunos com situação %d:\n", opcao);
     for (int i = 0; i < n; i++) {
         if (turma[i].situacao == opcao) {
-            printf("Nome: %s | Média: %.2f\n", turma[i].nome, turma[i].media);
+            printf("\tNome: %s | Média: %.2f\n", turma[i].nome, turma[i].media);
         }
     }
 }
@@ -58,15 +58,15 @@ void main()
     Aluno turma[10];
     int n, opcao;
     
-    printf("Quantos alunos deseja cadastrar? ");
+    printf("\n\tQuantos alunos deseja cadastrar? ");
     scanf("%d", &n);
 
-    lerAlunos(turma, n);
+    preencherTurma(turma, n);
     calcMedESituacoes(turma, n);
 
-    printf("\nDigite a situação que deseja consultar:\n");
-    printf("1 - Aprovado\n2 - Reprovado\n3 - Em AVF\n");
-    printf("Sua opção: ");
+    printf("\n\tDigite a situação que deseja consultar:");
+    printf("\n\t1 - Aprovado\n\t2 - Reprovado\n\t3 - Em AVF");
+    printf("\n\tSua opção: ");
     scanf("%d", &opcao);
 
     exibirSituacao(turma, n, opcao);

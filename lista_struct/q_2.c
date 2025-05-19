@@ -7,11 +7,28 @@ typedef struct{
         int dia;
         int mes;
     } Data;
+
+void preencherDatas(Data aniversario[]){
+    int i;
+    
+    for (i = 0; i < TAM; i++) {
+        printf("\n\tDigite o nome da pessoa %d: ", i + 1);
+        scanf(" %[^\n]", aniversario[i].nome); 
+
+        printf("\tDigite o dia do aniversário: ");
+        scanf("%d", &aniversario[i].dia);
+
+        printf("\tDigite o mês do aniversário: ");
+        scanf("%d", &aniversario[i].mes);
+    }
+    
+}
     
 int quant_mes(Data aniversario[], int mes){
     
     int i, cont=0;
-     for (int i = 0; i < TAM; i++) {
+
+    for (i = 0; i < TAM; i++) {
         if (aniversario[i].mes == mes) {
             cont++;
         }
@@ -25,7 +42,7 @@ void exibirPessoas(Data aniversario[],int dia, int dia2, int mes, int mes2){
     
      for (int i = 0; i < TAM; i++) {
         if (aniversario[i].dia >= dia && aniversario[i].mes >= mes && aniversario[i].dia <= dia2 && aniversario[i].mes <= mes2) {
-            printf("Nome: %s", aniversario[i].nome);
+            printf("\n\tNome: %s", aniversario[i].nome);
         }
     }
 }
@@ -34,31 +51,23 @@ void main()
 {
     Data aniversario[TAM];
     int dia, dia2, mes, mes2, quant, mesConsulta;
-    
-    for (int i = 0; i < TAM; i++) {
-        printf("\nDigite o nome da pessoa %d: ", i + 1);
-        scanf(" %[^\n]", aniversario[i].nome); 
 
-        printf("Digite o dia do aniversário: ");
-        scanf("%d", &aniversario[i].dia);
-
-        printf("Digite o mês do aniversário: ");
-        scanf("%d", &aniversario[i].mes);
-    }
+    preencherDatas(aniversario);
     
-    printf("Pessoas que fazem aniversario no mês: ");
+    printf("\n\tPessoas que fazem aniversario no mês: ");
     scanf("%d", &mesConsulta);
 
     quant=quant_mes(aniversario, mesConsulta);
-    printf("Quant de pessoas que fazem aniversário no mês %d: %d",mes, quant);
-    
-    printf("Entre com o dia 1: ");
+    printf("\n\tQuantidade de pessoas que fazem aniversário no mês %d: %d",mesConsulta, quant);
+
+    printf("\n\n\tEntre com as datas para exibir quem faz aniversário em um determinado intervalo!");
+    printf("\n\tEntre com o dia inicial: ");
     scanf("%d", &dia);
-    printf("Entre com o mes 1: ");
+    printf("\tEntre com o mes inicial: ");
     scanf("%d", &mes);
-    printf("Entre com o dia 2: ");
+    printf("\tEntre com o dia final: ");
     scanf("%d", &dia2);
-    printf("Entre com o mes 2: ");
+    printf("\tEntre com o mes final: ");
     scanf("%d", &mes2);
 
 
