@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 //implementação das funções
-int contarCaracteres (char nomeArq[])
+int contarCaracter (char nomeArq[])
 {
   //declaração de variáveis
   FILE* arq;  //passo 1: declarar uma variável FILE*
@@ -16,9 +16,14 @@ int contarCaracteres (char nomeArq[])
   {
     //passo 4: manipulando o arquivo
     while (fscanf (arq, "%c", &ch) != EOF)  //end of file
+    
     {
-      cont++;
-
+        ch = toupper (ch);
+		if ((ch >= 'A') && (ch <= 'Z'))
+		{
+			cont++;
+		}
+      
     }
 
     //passo 5: fechar o arquivo
@@ -43,18 +48,17 @@ void main ()
   printf ("Nome do arquivo: ");
   gets (nomeArquivo);
 
-  num_carac = contarCaracteres (nomeArquivo);
+  num_carac = contarCaracter (nomeArquivo);
 
   switch (num_carac)
 	{
 		case -1: printf ("\n\nErro na abertura do arquivo %s.", nomeArquivo);
 		         break;
 		         
-		case  0: printf ("\n\nO arquivo %s esta vazio!", nomeArquivo);
+		case  0: printf ("\n\nO arquivo %s não tem letras!", nomeArquivo);
 		         break;
 				 
-		default: printf ("\n\nHa %d caracteres no arquivo %s", num_carac, nomeArquivo);	
+		default: printf ("\n\nHa %d letras no arquivo %s", num_carac, nomeArquivo);	
    }
   
 }
-

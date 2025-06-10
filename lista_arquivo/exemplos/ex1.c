@@ -5,7 +5,7 @@ void main() {
   FILE *arq;
 
   //passo 2: associar a variável a um arquivo em disco + abrir o arquivo 
-  arq = fopen ("teste.txt", "r");  //r - read, w - write, a - append
+  arq = fopen ("teste.txt", "w");  //r - read, w - write, a - append
 
   //passo 3: verificando se o arquivo foi aberto
     if (arq != NULL)   //ou apenas:  if (arq)
