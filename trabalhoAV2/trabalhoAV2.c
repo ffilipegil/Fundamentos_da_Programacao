@@ -19,7 +19,71 @@ typedef struct{;
         char classf[15];
     } Cursos;
 
-void preencher_cursos(Cursos faeterj[]){
+void adic_curso(Cursos faeterj[]){
+    FILE* cursos;
+    int i=0;
+    int num_cursos;
+
+    cursos=fopen ("cursos.txt", "a");
+    
+    if (cursos != NULL)  
+    {
+        printf("\n\tQuer adicionar quantos cursos?: ");
+        scanf("%d", &num_cursos);
+        
+        while (i<num_cursos) 
+        {
+            printf("\n\tDigite o código do curso: ");
+            scanf("%d", &faeterj[i].cod_curso);
+        
+            printf("\n\tDigite a nota do Enade: ");
+            scanf("%f", &faeterj[i].nota_enade);
+        
+            printf("\n\tDigite o IDD: ");
+            scanf("%f", &faeterj[i].idd);
+        
+            printf("\n\tDigite a proporção de doutores: ");
+            scanf("%f", &faeterj[i].doutores);
+        
+            printf("\n\tDigite a proporção de mestres: ");
+            scanf("%f", &faeterj[i].mestres);
+        
+            printf("\n\tDigite o regime de trabalho: ");
+            scanf("%f", &faeterj[i].regime_trabalho);
+        
+            printf("\n\tDigite a nota de organização didático-pedagógica: ");
+            scanf("%f", &faeterj[i].organizacao);
+        
+            printf("\n\tDigite a nota de infraestrutura: ");
+            scanf("%f", &faeterj[i].infraestrutura);
+        
+            printf("\n\tDigite a nota de oportunidades de ampliação da formação: ");
+            scanf("%f", &faeterj[i].oportunidades);
+        
+            printf("\n\tDigite o número de alunos: ");
+            scanf("%d", &faeterj[i].num_alunos);
+            
+            fprintf(cursos, "\n%d|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%d", faeterj[i].cod_curso, faeterj[i].nota_enade, faeterj[i].idd, faeterj[i].doutores,
+                    faeterj[i].mestres, faeterj[i].regime_trabalho, faeterj[i].organizacao, faeterj[i].infraestrutura, faeterj[i].oportunidades, faeterj[i].num_alunos);
+            
+            i++;
+        }
+        
+        printf("\n\tCurso adicionado com sucesso ao arquivo!\n");
+        
+        fclose(cursos);
+
+    }
+    else
+    {
+        
+       printf("\n\tErro na abertura do arquivo\n");
+        
+    }
+}
+
+
+int preencher_cursos(Cursos faeterj[]){
     FILE* cursos;
     int i=0;
 
@@ -46,10 +110,13 @@ void preencher_cursos(Cursos faeterj[]){
     printf("\n\tOs dados foram processados corretamente!\n");
 
     fclose (cursos);
+
+    return 1;
+
     }
     else
     {
-        printf("\n\tErro ao abrir o arquivo.\n");
+       return 0;
     }
 
 }
@@ -127,25 +194,30 @@ void exibe_curso_faixa(Cursos faeterj[]){
     
 }
 
-
 void main(){
     Cursos faeterj[TAM];
-    int resp;
+    int resp=1, retorno;
+    
+    while(resp==1 || resp==2){
+        printf("\n\tDigite [1] para adicionar um novo curso, digite [2] para processar os dados ou qualquer número para encerrar: ");
+        scanf("%d", &resp);
 
-    printf("\n\tDigite [1] para adicionar um novo curso ou digite [2] para processar os dados: ");
-    scanf("%d", &resp);
-
-    if(resp==1)
-    {
-        adicionar_curso();
+        if (resp == 2) 
+        {
+            retorno=preencher_cursos(faeterj);
+            if(retorno=1){
+                calc_cpc_classf(faeterj);
+                exibe_curso(faeterj);
+                exibe_curso_faixa(faeterj);
+            }
+            else
+            {
+                printf("\n\tErro ao abrir o arquivo.\n");
+                
+            }
+        } else if(resp==1)
+        {
+           adic_curso(faeterj);
+        }
     }
-    else
-    {
-        preencher_cursos(faeterj);
-        calc_cpc_classf(faeterj);
-        exibe_curso(faeterj);
-        exibe_curso_faixa(faeterj);
-        calc_igc();
-    }
-
 }
