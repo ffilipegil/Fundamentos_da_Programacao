@@ -1,9 +1,15 @@
+/*
+    ALUNOS:
+    FILIPE SOARES DA SILVA GIL 
+    PAULO HENRIQUE
+*/
+
 #include <stdio.h>
 #include <string.h>
 
 #define TAM 10
 
-typedef struct{;
+typedef struct{
         int cod_curso;
         float nota_enade;
         float idd;
@@ -16,7 +22,7 @@ typedef struct{;
         int num_alunos;
         float cpc_cont;
         int cpc_faixa;
-        char classf[15];
+        char classf[25];
     } Cursos;
 
 void adic_curso(Cursos faeterj[]){
@@ -33,7 +39,7 @@ void adic_curso(Cursos faeterj[]){
         
         while (i<num_cursos) 
         {
-            printf("\n\tDigite o código do curso: ");
+            printf("\n\tDigite o codigo do curso: ");
             scanf("%d", &faeterj[i].cod_curso);
         
             printf("\n\tDigite a nota do Enade: ");
@@ -42,25 +48,25 @@ void adic_curso(Cursos faeterj[]){
             printf("\n\tDigite o IDD: ");
             scanf("%f", &faeterj[i].idd);
         
-            printf("\n\tDigite a proporção de doutores: ");
+            printf("\n\tDigite a proporçao de doutores: ");
             scanf("%f", &faeterj[i].doutores);
         
-            printf("\n\tDigite a proporção de mestres: ");
+            printf("\n\tDigite a proporçao de mestres: ");
             scanf("%f", &faeterj[i].mestres);
         
             printf("\n\tDigite o regime de trabalho: ");
             scanf("%f", &faeterj[i].regime_trabalho);
         
-            printf("\n\tDigite a nota de organização didático-pedagógica: ");
+            printf("\n\tDigite a nota de organizaçao didatico-pedagogica: ");
             scanf("%f", &faeterj[i].organizacao);
         
             printf("\n\tDigite a nota de infraestrutura: ");
             scanf("%f", &faeterj[i].infraestrutura);
         
-            printf("\n\tDigite a nota de oportunidades de ampliação da formação: ");
+            printf("\n\tDigite a nota de oportunidades de ampliaçao da formaçao: ");
             scanf("%f", &faeterj[i].oportunidades);
         
-            printf("\n\tDigite o número de alunos: ");
+            printf("\n\tDigite o numero de alunos: ");
             scanf("%d", &faeterj[i].num_alunos);
             
             fprintf(cursos, "\n%d|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%d", faeterj[i].cod_curso, faeterj[i].nota_enade, faeterj[i].idd, faeterj[i].doutores,
@@ -101,9 +107,8 @@ int preencher_cursos(Cursos faeterj[]){
                   &faeterj[i].organizacao,
                   &faeterj[i].infraestrutura,
                   &faeterj[i].oportunidades,
-                  &faeterj[i].num_alunos) == 10) 
+                  &faeterj[i].num_alunos) == 10 ) 
     {
-        printf("\n\tCurso %d lido: codigo %d, Enade %.2f\n", i+1, faeterj[i].cod_curso, faeterj[i].nota_enade);
         i++;
     }
 
@@ -111,20 +116,21 @@ int preencher_cursos(Cursos faeterj[]){
 
     fclose (cursos);
 
-    return 1;
+    return i;
 
     }
     else
     {
-       return 0;
+       return -1;
     }
 
 }
       
-void calc_cpc_classf(Cursos faeterj[]){
+void calc_cpc_classf(Cursos faeterj[], int qtd_cursos){
     int i;
 
-    for (i = 0; i < TAM; i++) {
+    for (i = 0; i < qtd_cursos; i++) 
+    {
         faeterj[i].cpc_cont=(faeterj[i].nota_enade*0.20)+(faeterj[i].idd*0.35)+(faeterj[i].doutores*0.15)+(faeterj[i].mestres*0.075)+
                             (faeterj[i].regime_trabalho*0.075)+(faeterj[i].organizacao*0.075)+(faeterj[i].infraestrutura*0.05)+(faeterj[i].oportunidades*0.025);
 
@@ -157,18 +163,18 @@ void calc_cpc_classf(Cursos faeterj[]){
 
 }
 
-void exibe_curso(Cursos faeterj[]){
+void exibe_curso(Cursos faeterj[], int qtd_cursos){
     int i;
     printf("\n\t======== Dados por Cursos FAETERJ-Rio =========\n");
-    for (i = 0; i < TAM; i++) 
+    for (i = 0; i < qtd_cursos; i++) 
     {
-        printf("\n\tCódigo do Curso: %d\n\tCPC Contínuo %.2f\n\tCPC Faixa %d\n\tClassificação: %s\n",
+        printf("\n\tCodigo do Curso: %d\n\tCPC Continuo %.2f\n\tCPC Faixa %d\n\tClassificaçao: %s\n",
                 faeterj[i].cod_curso, faeterj[i].cpc_cont, faeterj[i].cpc_faixa, faeterj[i].classf);
     }
     
 }
 
-void exibe_curso_faixa(Cursos faeterj[]){
+void exibe_curso_faixa(Cursos faeterj[], int qtd_cursos){
     int i, faixa, encontrou_curso;
 
     printf("\n\t======== Dados por CPC Faixa FAETERJ-Rio =========\n");
@@ -179,7 +185,7 @@ void exibe_curso_faixa(Cursos faeterj[]){
         printf("\n\tCursos FAETERJ-Rio com CPC Faixa %d\n", faixa);
         encontrou_curso = 0;
 
-        for (i = 0; i < TAM; i++) 
+        for (i = 0; i < qtd_cursos; i++) 
         {
             if(faeterj[i].cpc_faixa==faixa){
                 printf("\n\tCodigo do Curso: %d\n\tCPC Continuo: %.2f\n", faeterj[i].cod_curso, faeterj[i].cpc_cont);
@@ -194,30 +200,85 @@ void exibe_curso_faixa(Cursos faeterj[]){
     
 }
 
+void calc_exibe_igc(Cursos faeterj[], int qtd_cursos){
+    int i, igc_faixa, total_alun=0;
+    float soma=0.0, igc_cont;
+
+    for(i=0; i<qtd_cursos; i++){
+        if(faeterj[i].cod_curso!=0){
+            soma+=faeterj[i].cpc_cont*faeterj[i].num_alunos;
+            total_alun+=faeterj[i].num_alunos;
+        }
+    }
+    
+    igc_cont=soma/total_alun;
+    
+    printf("\n\t========== IGC da FAETERJ-Rio ==========\n");
+    printf("\n\tIGC Continuo: %.2f\n", igc_cont);
+    
+    if (igc_cont>=0.945)
+        {
+            igc_faixa=2;
+
+            if(igc_cont>=1.945)
+            {
+                igc_faixa=3;
+            }
+            if(igc_cont>=2.945)
+            {
+                igc_faixa=4;
+            }
+            if(igc_cont>=3.945)
+            {
+                igc_faixa=5;
+            }
+        }
+        else
+        {
+            igc_faixa=1;
+        }
+    
+        printf("\n\tIGC Faixa: %d\n", igc_faixa);
+        
+        if(igc_faixa >= 3){
+            printf("\n\tClassificaçao: IGC Satisfatorio\n");
+        } else {
+            printf("\n\tClassificaçao: IGC Insatisfatorio\n");
+        }
+    
+}
+
 void main(){
     Cursos faeterj[TAM];
-    int resp=1, retorno;
+    int resp=1, qtd_cursos=0;
     
     while(resp==1 || resp==2){
-        printf("\n\tDigite [1] para adicionar um novo curso, digite [2] para processar os dados ou qualquer número para encerrar: ");
+        printf("\n\tDigite [1] para adicionar um novo curso, digite [2] para processar os dados ou qualquer numero para encerrar: ");
         scanf("%d", &resp);
 
         if (resp == 2) 
         {
-            retorno=preencher_cursos(faeterj);
-            if(retorno=1){
-                calc_cpc_classf(faeterj);
-                exibe_curso(faeterj);
-                exibe_curso_faixa(faeterj);
-            }
-            else
-            {
-                printf("\n\tErro ao abrir o arquivo.\n");
-                
-            }
-        } else if(resp==1)
+            qtd_cursos=preencher_cursos(faeterj);
+            
+            switch (qtd_cursos)
+        	{
+        		case -1: printf ("\n\tErro na abertura do arquivo.\n");
+        		         break;
+        		         
+        		case  0: printf ("\n\tO arquivo não tem nenhum curso preenchido\n");
+        		         break;
+        				 
+        		default: calc_cpc_classf(faeterj, qtd_cursos);
+        		         exibe_curso(faeterj, qtd_cursos);
+        		         exibe_curso_faixa(faeterj, qtd_cursos);
+        		         calc_exibe_igc(faeterj, qtd_cursos);
+           }
+            
+        } 
+        else if(resp==1)
         {
            adic_curso(faeterj);
         }
     }
+
 }
