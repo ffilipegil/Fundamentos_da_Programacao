@@ -168,7 +168,7 @@ void exibe_curso(Cursos faeterj[], int qtd_cursos){
     printf("\n\t======== Dados por Cursos FAETERJ-Rio =========\n");
     for (i = 0; i < qtd_cursos; i++) 
     {
-        printf("\n\tCodigo do Curso: %d\n\tCPC Continuo %.2f\n\tCPC Faixa %d\n\tClassificaçao: %s\n",
+        printf("\n\tCodigo do Curso: %d\n\tCPC Continuo %.2f\n\tCPC Faixa %d\n\tClassificacao: %s\n",
                 faeterj[i].cod_curso, faeterj[i].cpc_cont, faeterj[i].cpc_faixa, faeterj[i].classf);
     }
     
@@ -241,9 +241,9 @@ void calc_exibe_igc(Cursos faeterj[], int qtd_cursos){
         printf("\n\tIGC Faixa: %d\n", igc_faixa);
         
         if(igc_faixa >= 3){
-            printf("\n\tClassificaçao: IGC Satisfatorio\n");
+            printf("\n\tClassificacao: IGC Satisfatorio\n");
         } else {
-            printf("\n\tClassificaçao: IGC Insatisfatorio\n");
+            printf("\n\tClassificacao: IGC Insatisfatorio\n");
         }
     
 }
