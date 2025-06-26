@@ -22,7 +22,7 @@ int desc_maior(char nomeArqO[], int limite, int *valor){
             {
                 maior = numero;
 					
-				alterouMaior = 1;
+				        alterouMaior = 1;
             }
         }
         
