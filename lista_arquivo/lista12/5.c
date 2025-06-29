@@ -42,7 +42,7 @@ void ordena(char nomeArqO[], char nomeArqD[]){
       fprintf(arqD, "%d\n", valor);
       limite=valor;
     }
-    fclose(arqD);
+    9
 
     printf("\n\tOrdenação bem sucedida");
   }
